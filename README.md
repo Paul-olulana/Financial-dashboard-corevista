@@ -1,88 +1,139 @@
-# 📊 CoreVista Group – Financial Dashboard (Power BI)
+# 📊 CoreVista Group – Financial Performance Dashboard (Power BI)
 
-A professional Profit & Loss dashboard designed in Power BI for a fictional company, **CoreVista Group**.  
-This dashboard demonstrates advanced financial analysis, KPI tracking, and executive-level data storytelling.
-
----
-
-## 📌 Overview
-
-This dashboard provides:
-
-- Year-to-Date (YTD), Month-over-Month (MoM), and Year-over-Year (YoY) metrics
-- Clean KPI card layout with conditional formatting
-- Interactive Income Statement with expandable hierarchy
-- Visual comparison of Revenue vs Expenses
-- Top 5 expense analysis and trend insights
+A business-ready Profit & Loss dashboard created in Power BI to track and analyze key financial metrics like Revenue, Net Profit, COGS, and Operating Expenses over time. This solution simulates a real-world scenario for financial storytelling, trend monitoring, and executive reporting.
 
 ---
 
-## 🧠 Key Features
+## 📌 Table of Contents:
 
-| Feature                         | Description                                              |
-|----------------------------------|----------------------------------------------------------|
-| 🔹 Dynamic Slicers               | Filter by Year and Month easily                          |
-| 📈 Trend Analysis                | Revenue & Net Profit trends over time                    |
-| 📊 KPI Metrics                   | Net Profit, Revenue, COGS, Opex, Gross Profit            |
-| 📂 Income Statement Matrix       | Expandable hierarchy grouped by Financial Category       |
-| 🧮 MoM & YoY Calculations        | Custom DAX measures for smart performance insights       |
-| 🧼 Reset Button                  | Clears filters and resets to default dashboard view      |
-| 🖼 Polished UI                   | Custom branding, icons, layout, and clear storytelling   |
+- [Problem Statement](#problem-statement)
+- [Datasource](#datasource)
+- [Data Preparation](#data-preparation)
+- [Data Modeling](#data-modeling)
+- [Data Analysis (DAX)](#data-analysis-dax)
+- [Data Visualization (Dashboard)](#data-visualization-dashboard)
+- [Insights](#insights)
+- [Recommendation](#recommendation)
 
 ---
 
-## 📸 Screenshots
+## 🔍 Problem Statement
 
-### 🔹 Financial Overview
-![Financial Overview](https://github.com/user-attachments/assets/5ccf42ea-2221-49a5-b2f2-2150c671de53)
+The goal is to build a dynamic P&L dashboard for a fictional company, **CoreVista Group**, that allows users to monitor financial performance across months and years, compare against previous periods, and identify key cost drivers.
 
-### 🔹 Income Statement
-![Income Statement](https://github.com/user-attachments/assets/f35b54ce-a325-453a-84a7-98d8957f119f)
+Key questions this dashboard helps answer:
+- How is the company performing financially this year vs last year?
+- Which expense areas are impacting profit most?
+- How do Revenue and Net Profit trend over time?
 
+---
 
-### 🔹 Last Year Analysis
-![Last Year Analysis](https://github.com/user-attachments/assets/0e81e0f0-3e77-40c1-8f53-f26ef4c7e2cc)
+## 🌐 Datasource
+
+- **Source**: Simulated P&L dataset  
+- **Format**: Excel → imported into Power BI  
+- **Structure**:
+  - `P&L Table` (fact)
+  - `Dim P&L` (line item descriptions)
+  - `Calendar` (date dimension)
+
+---
+
+## 🧹 Data Preparation
+
+Steps taken in Power Query:
+- Cleaned nulls and unnecessary columns
+- Converted `Date` to proper date format
+- Extracted Year, Month, Month-Year columns
+- Added conditional logic for groupings (e.g., Financial Category)
+
+---
+
+## 🏗️ Data Modeling
+
+| Table        | Role                 |
+|--------------|----------------------|
+| `P&L Table`  | Fact table with Amount, Date, Line Items |
+| `Dim P&L`    | Dimension table for financial categories |
+| `Calendar`   | Date table for YTD, MoM, and YoY analysis |
+
+Relationships:
+- One-to-many from `Calendar[Date]` → `P&L Table[Date]`
+- One-to-many from `Dim P&L[Index]` → `P&L Table[Index]`
+
+---
+
+## 🧠 Data Analysis (DAX)
+
+Created custom measures including:
+- **[Revenue]**, **[COGS]**, **[Gross Profit]**
+- **[Net Profit]** = Revenue - COGS - Expenses
+- **[YTD Revenue]**, **[Revenue LY]**, **[Revenue YoY %]**
+- **[MoM %]** for key metrics
+- **[Expense to Revenue %]**
+
+Used `CALCULATE`, `SAMEPERIODLASTYEAR`, `TOTALYTD`, `PREVIOUSMONTH`, and `DIVIDE` extensively.
+
+---
+
+## 📊 Data Visualization (Dashboard)
+
+### 📘 Financial Overview
+
+![Financial Overview](https://github.com/user-attachments/assets/89249d9b-ce46-46cc-bb1b-bf3365c80665)
+
+---
+
+### 📘 Last Year Analysis
+
+![Last Year Analysis](https://github.com/user-attachments/assets/f81a89ba-cc4b-4f27-88dc-d867d5eed354)
+
+---
+
+### 📘 Income Statement
+
+![income statement](https://github.com/user-attachments/assets/a92d0dd7-a996-47a3-ade9-0bafe5504312)
+
+---
+
+## 🔎 Insights
+
+- Net Profit steadily increased over Q3–Q4
+- Operating Expenses are the largest non-COGS driver
+- 2023 Revenue outperformed 2022 by 12%
+- December saw a sharp revenue spike (+40% MoM)
+- Taxes and D&A remain stable across periods
+
+---
+
+## ✅ Recommendation
+
+- Focus on managing Operating Expenses, especially during high-revenue months
+- Monitor COGS ratio to maintain Gross Margin
+- Automate revenue forecasting with historical YoY/MoM patterns
+- Extend dashboard to include Budget vs Actuals and Cash Flow
 
 ---
 
 ## 📁 Files
 
-| File                                     | Description                               |
-|------------------------------------------|-------------------------------------------|
-| `corevista-financial-dashboard.pbix`     | Power BI file (open in Power BI Desktop)  |
-| `screenshots/`                           | Image previews of each report page        |
-| `README.md`                              | Project documentation                     |
+| File                                    | Description                      |
+|-----------------------------------------|----------------------------------|
+| `corevista-financial-dashboard.pbix`    | Main Power BI report             |
+| `screenshots/`                          | Visual previews of dashboard     |
+| `README.md`                             | Project documentation            |
 
 ---
 
-## 📂 How to Use
+## 📌 License
 
-1. Clone or download this repository
-2. Open `corevista-financial-dashboard.pbix` in Power BI Desktop
-3. Explore slicers, tooltips, and KPI interactions
-4. Customize with your own dataset or brand
+Open source for educational and portfolio use. Attribution appreciated.  
+Do not redistribute commercially without permission.
 
 ---
 
-## 💼 Use Case
+##  Author
 
-This dashboard is ideal for:
-- Finance professionals showcasing Power BI skills
-- Internal company financial reporting templates
-- Data analyst portfolios
-
----
-
-## 📝 License
-
-This project is open source for portfolio and educational purposes.  
-Attribution is appreciated. Do not resell or redistribute commercially.
-
----
-
-## 🙌 Credits
-
-Built by Paul Olulana | Inspired by real-world P&L dashboards  
-Icons from [Flaticon](https://www.flaticon.com/), layout inspired by Power BI best practices
-
----
+**Paul Olulana**  
+Data Analyst  
+Connect on [LinkedIn](https://www.linkedin.com/in/oluwafemi-paul-3a7272265/)
